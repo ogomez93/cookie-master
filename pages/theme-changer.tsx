@@ -42,9 +42,11 @@ const ThemeChanger: NextPage<Props> = ({ theme }) => {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const { 'COOKIE_MASTER-theme': theme = 'light' } = req.cookies
 
+  const validThemes = ['light', 'dark', 'custom']
+
   return {
     props: {
-      theme
+      theme: validThemes.includes(theme) ? theme : 'dark'
     }
   }
 }
