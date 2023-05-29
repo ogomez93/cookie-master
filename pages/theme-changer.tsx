@@ -1,8 +1,9 @@
 import { ChangeEvent, useState } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 import Cookies from 'js-cookie'
+import axios from 'axios'
 
-import { Card, CardContent, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
+import { Button, Card, CardContent, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
 
 import { Layout } from '../components/layouts'
 
@@ -19,6 +20,10 @@ const ThemeChanger: NextPage<Props> = ({ theme }) => {
     Cookies.set('COOKIE_MASTER-theme', selectedTheme)
   }
 
+  const handleRequestClick = async () => {
+    const { data } = await axios.get('/api/hello')
+  }
+
   return (
     <Layout>
       <Card>
@@ -31,6 +36,8 @@ const ThemeChanger: NextPage<Props> = ({ theme }) => {
               <FormControlLabel value='custom' control={<Radio />} label='custom' />
             </RadioGroup>
           </FormControl>
+
+          <Button onClick={handleRequestClick}>Request</Button>
         </CardContent>
       </Card>
     </Layout>
